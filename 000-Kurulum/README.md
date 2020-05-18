@@ -9,5 +9,8 @@ Genel eğitim VS Code, Cmake, OpenGL gibi konulara değinmiştir. Detaylı bir b
 #### Gerekli Paket Kurulumları
 
 ```git
+
 sudo apt install build-essential
+
+
 ```
