@@ -1,10 +1,10 @@
-# VS Code OpenGL Kurulumu & Manuel Çalıştırma : 000-Kurulum
+# VS Code Cmake Kurulumu & Manuel Çalıştırma : 000-Kurulum
 
 >**Not :** VS Code kurulu değilse; [Pardus forumda mevcut olan bu bağlantıya tıklayarak](https://forum.pardus.org.tr), ulaşabilirsiniz.
 
 ## Eğitim Başlıkları
 
-Genel eğitim VS Code, Cmake, OpenGL gibi konulara değinmiştir. Detaylı bir başlangıç kurulum eğitimidir.
+Genel eğitim VS Code ile Cmake derleme ortamının çalıştırılması üzerine anlatılmıştır. Bu şekilde komut satırını kullanarak projemizdeki dosyaları Cmake ile derleyebilmekteyiz.
 
 #### Gerekli Paket Kurulumları
 
@@ -96,5 +96,41 @@ Tabi; **`Cmake`** diye aratıp, Cmake eklentilerini de kurmalıyız. Ayrıca; yi
 
 ![](images/cmake.png)
 
-**Cmake,** projemizi istediğimiz platformda derlenebilecek hale getirmeye yarayan bir araçtır. Bunu yapabilmesi için projemizde kullandığımız dosyaları ona tanıtmamız gerekiyor. Yani; bazı bilgilere sahip olması gerekiyor.
+**Cmake,** projemizi istediğimiz platformda derlenebilecek hale getirmeye yarayan bir araçtır. Bunu yapabilmesi için projemizde kullandığımız dosyaları ona tanıtmamız gerekiyor. Yani; bazı bilgilere sahip olması gerekiyor. Hangi dosyaların dahil olduğu, hangi kütüphaneleri projemize dahil edeceğimizi önceden Cmake 'e bildiriyoruz. Bunun için **`CMakeLists.txt`** isimli bir dosyayı ana dizinde oluşturuyoruz.
 
+İlk olarak Cmake versiyonunu belirtiyoruz.
+
+```cmake
+cmake_minimum_required(VERSION 2.8)
+```
+
+Daha sonra projenin çıktı olarak oluşturulacağı ismi giriyoruz.
+
+```cmake
+project(OpenGLCMakeBuild)
+```
+
+Şimdi Cmake 'e proje dizin yollarını ve dahil olan dosyaları ekliyoruz. `${CMAKE_SOURCE_DIR}` ile proje yolunu belirtsede, `set()` fonksiyonuyla kendi değişkenimizi oluşturup, `PROJECT_DIR` ismine atıyoruz. Böylece daha temiz ve karmaşıklığa yol açmadan bu değişken ismi üzerinden diğer değişkenlerimizi de oluşturuyoruz.
+
+```cmake
+set(PROJECT_DIR ${CMAKE_SOURCE_DIR})
+
+set(PROJECT_INCLUDE_DIR ${PROJECT_DIR}/include)
+
+set(PROJECT_SOURCE_DIR ${PROJECT_DIR}/src)
+
+set(PROJECT_SOURCES
+        ${PROJECT_SOURCE_DIR}/main.cpp
+        ${PROJECT_SOURCE_DIR}/kutuphane.cpp)
+
+set(PROJECT_HEADERS
+        ${PROJECT_INCLUDE_DIR}/kutuphane.hpp)
+```
+
+Son olarak projemizdeki kütüphaneleri ve yürütülebilen dosyaları sisteme ekliyoruz. Buradaki `${PROJECT_NAME}` aslında yukarıda `project(OpenGLCMakeBuild)` koduyla oluşturduğumuz proje ismidir.
+
+```cmake
+include_directories(${PROJECT_INCLUDE_DIR})
+
+add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
+```
