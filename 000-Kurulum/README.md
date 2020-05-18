@@ -1,4 +1,4 @@
-# VS Code Cmake Kurulumu & Manuel Çalıştırma : 000-Kurulum
+# VS Code Cmake Kurulumu & Manuel Çalıştırma
 
 >**Not :** VS Code kurulu değilse; [Pardus forumda mevcut olan bu bağlantıya tıklayarak](https://forum.pardus.org.tr), ulaşabilirsiniz.
 
@@ -6,7 +6,9 @@
 
 Genel eğitim VS Code ile Cmake derleme ortamının çalıştırılması üzerine anlatılmıştır. Bu şekilde komut satırını kullanarak projemizdeki dosyaları Cmake ile derleyebilmekteyiz.
 
-#### Gerekli Paket Kurulumları
+---
+
+#### Gerekli Paket Kurulumları Ve Ayarları
 
 Öncelikle `g++` derleyicisini sisteme kurmamız gerekmektedir.
 ```git
@@ -127,10 +129,35 @@ set(PROJECT_HEADERS
         ${PROJECT_INCLUDE_DIR}/kutuphane.hpp)
 ```
 
-Son olarak projemizdeki kütüphaneleri ve yürütülebilen dosyaları sisteme ekliyoruz. Buradaki `${PROJECT_NAME}` aslında yukarıda `project(OpenGLCMakeBuild)` koduyla oluşturduğumuz proje ismidir.
+Son olarak projemizdeki kütüphaneleri ve yürütülebilen dosyaları sisteme ekliyoruz. Buradaki `${PROJECT_NAME}` aslında yukarıda `cmake project(OpenGLCMakeBuild)` koduyla oluşturduğumuz proje ismidir.
 
 ```cmake
 include_directories(${PROJECT_INCLUDE_DIR})
 
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
 ```
+
+---
+
+#### Cmake İle Projeyi Çalıştırma
+
+**VS Code** içerisinden Kurulum dosyasındaki boş alanda fare ile sağ tıklayarak **Open in Terminal** ile yapabileceğimiz gibi ilgili klasörde de **Uçbirimde aç** seçeneğiyle de konsol ekranına ulaşabiliriz. Konsol ekranına ulaştıktan sonra bir sonraki bölümde dış bir klasöre aktaracak olsakda bu ders kapsamında deneme yapmamız için **`build`** isimli bir klasör oluşturuyoruz.
+
+```bash
+mkdir build
+cd build
+```
+
+Şimdi sıra inşa işlemine geldi. Bir üstteki klasördeki `CMakeLists.txt` dosyasını kullanabilmek için konsolda **`cmake ..`** komutunu çalıştırıyoruz. Bu sayede cmake bizim bulunduğumuz klasöre **`make`** komutuyla sistemimize uygun çalışan dosyaları elde edebileceğimiz inşa işlemine başlayacaktır.
+
+![](images/cmake-build.png)
+
+Bulunduğumuz `build` klasörünü **`ls`** komutuyla kontrol ettiğimizde derleme yapabileceğimiz **`Makefile`** 'ın oluştuğunu görüyoruz. `make` komutuyla çalıştırılabilir dosyamızı oluşturuyoruz. Dosyamızı çalıştırarak fonksiyon sonucunun döndüğünü konsol ekranından görebiliriz. Sırada bu çalışmaya OpenGL entegrasyonu ve bu işlemleri VS Code ile konsola bulaşmadan otomatik hale getirmeyi göreceğiz.
+
+![](images/make-run.png)
+
+---
+
+**MIT Lisansı**
+
+[Telif Hakkı](https://github.com/w3eydi/OpenGL-VSCode/blob/master/LICENSE) (Copyright) (c) 2020 Eydi Gözeneli - github.com/w3eydi
