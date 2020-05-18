@@ -6,7 +6,7 @@ Tübitak Ulakbim tarafından geliştirilen Pardus üzerinden OpenGL kulanımın�
 
 Genel eğitim VS Code, Cmake, OpenGL gibi konulara değinmiştir. Detaylı bir başlangıç kurulum eğitimidir.
 
-### 1. VS Code OpenGL Kurulumu & Manuel Çalıştırma : 000-Kurulum
+### 1. VS Code OpenGL Kurulumu & Manuel Çalıştırma : [000-Kurulum](https://github.com/w3eydi/OpenGL-VSCode/tree/master/000-Kurulum)
 >**Not :** VS Code kurulu değilse; [Pardus forumda mevcut olan bu bağlantıya tıklayarak](https://forum.pardus.org.tr), ulaşabilirsiniz.
 
 ---
