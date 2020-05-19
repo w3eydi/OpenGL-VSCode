@@ -1,20 +1,22 @@
 # VS Code Cmake Kurulumu & Manuel Çalıştırma
 
+Bu bölümde VS Code ile Cmake entegre edilerek konsol ekranı üzerinden çalıştırmayı ele alacağız.
+
 >**Not :** VS Code kurulu değilse; [Pardus forumda mevcut olan bu bağlantıya tıklayarak](https://forum.pardus.org.tr), ulaşabilirsiniz.
 
-## Eğitim Başlıkları
+## Eğitim İçeriği
 
-Genel eğitim VS Code ile Cmake derleme ortamının çalıştırılması üzerine anlatılmıştır. Bu şekilde komut satırını kullanarak projemizdeki dosyaları Cmake ile derleyebilmekteyiz.
+Genel olarak eğitimin amacı VS Code ortamında hazırlayacağımız projeyi farklı platformlarda da derlenebilecek biçime getirmektir. Bunun için Cmake aracını, çeşitli komutları ve VS Code ortamındaki gerekli Extensions(Eklentiler) modüllerini kurarak çalışmamızı gerçekleştireceğiz.
 
 ---
 
-#### Gerekli Paket Kurulumları Ve Ayarları
+## Gerekli Paket Kurulumları Ve Ayarları
 
-Öncelikle `g++` derleyicisini sisteme kurmamız gerekmektedir.
+Öncelikle projemizde derleme yapabilmemiz için gerekli olan `g++` derleyicisini sisteme kurmamız gerekmektedir.
 ```git
 sudo apt install build-essential
 ```
-Belki sizde kurulu olabilir.Versiyon kontrolü için :
+Belki sizde kurulu olabilir. Versiyon kontrolü için :
 ```git
 g++ -v
 ```
@@ -90,11 +92,11 @@ int main(int argc, char** argv){
 }
 ```
 
-**VS Code** bir metin editörüdür. IDE gibi davranması için çeşitli eklentileri kurmamız gerekiyor. En başka [Pardus Forumda oluşturduğum konudan](forum.pardus.org.tr) Türkçe VS Code **`C/C++`** eklentisini baştan kurmuş olmalıydınız. Soldaki eklentiler menüsünden `Extensions` veya <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>X</kbd> kısayoluyla açabilirsiniz.
+**VS Code** bir metin editörüdür. IDE gibi davranması için çeşitli eklentileri kurmamız gerekiyor. En başta [Pardus Forumda oluşturduğum konudan](forum.pardus.org.tr) Türkçe VS Code **`C/C++`** eklentisini kurmuş olmalıydınız. Soldaki eklentiler menüsünden `Extensions` veya <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>X</kbd> kısayoluyla açabilirsiniz.
 
 ![](images/extensions.png)
 
-Tabi; **`Cmake`** diye aratıp, Cmake eklentilerini de kurmalıyız. Ayrıca; yine Microsoft 'un geliştirmeyi devraldığı `Cmake Tools` eklentisini de kurmalısınız. Kurulum bittiğinde otomatik olarak yapılandırma seçeneği çıkmaktadır. Dilerseniz bu kısayol yöntemiyle yapılandırabilirsiniz. Biz şimdilik uzun yolu tercih edip, mantığını anlamaya çalışacağız.
+Tabi; **`Cmake`** diye aratıp, Cmake eklentilerini de kurmalıyız. Ayrıca; yine Microsoft 'un geliştirmeyi devraldığı **`Cmake Tools`** eklentisini de kurmalısınız. Kurulum bittiğinde otomatik olarak yapılandırma seçeneği çıkmaktadır. Dilerseniz bu kısayol yöntemiyle yapılandırabilirsiniz. Biz şimdilik uzun yolu tercih edip, mantığını anlamaya çalışacağız.
 
 ![](images/cmake.png)
 
@@ -139,7 +141,7 @@ add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
 
 ---
 
-#### Cmake İle Projeyi Çalıştırma
+## Cmake İle Projeyi Çalıştırma
 
 **VS Code** içerisinden Kurulum dosyasındaki boş alanda fare ile sağ tıklayarak **Open in Terminal** ile yapabileceğimiz gibi ilgili klasörde de **Uçbirimde aç** seçeneğiyle de konsol ekranına ulaşabiliriz. Konsol ekranına ulaştıktan sonra bir sonraki bölümde dış bir klasöre aktaracak olsakda bu ders kapsamında deneme yapmamız için **`build`** isimli bir klasör oluşturuyoruz.
 
@@ -152,7 +154,7 @@ cd build
 
 ![](images/cmake-build.png)
 
-Bulunduğumuz `build` klasörünü **`ls`** komutuyla kontrol ettiğimizde derleme yapabileceğimiz **`Makefile`** 'ın oluştuğunu görüyoruz. `make` komutuyla çalıştırılabilir dosyamızı oluşturuyoruz. Dosyamızı çalıştırarak fonksiyon sonucunun döndüğünü konsol ekranından görebiliriz. Sırada bu çalışmaya OpenGL entegrasyonu ve bu işlemleri VS Code ile konsola bulaşmadan otomatik hale getirmeyi göreceğiz.
+Bulunduğumuz `build` klasörünü **`ls`** komutuyla kontrol ettiğimizde derleme yapabileceğimiz **`Makefile`** 'ın oluştuğunu görüyoruz. `make` komutuyla çalıştırılabilir dosyamızı oluşturuyoruz. Dosyamızı çalıştırarak fonksiyon sonucunun döndüğünü konsol ekranından görebiliriz. Sırada bu işlemleri VS Code ile konsola bulaşmadan otomatik hale getirmeyi ve devamında çalışmaya OpenGL entegrasyonu göreceğiz.
 
 ![](images/make-run.png)
 
