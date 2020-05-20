@@ -15,7 +15,7 @@ Genel eğitim VS Code, Cmake, OpenGL gibi konulara değinmiştir. Detaylı bir b
 
 
 
-## 2. VS Code Cmake Yapılandırma & Otomatik Çalıştırma : 001-OtoÇalıştırma
+## 2. VS Code Cmake Yapılandırma & Otomatik Çalıştırma : [001-OtoÇalıştırma](https://github.com/w3eydi/OpenGL-VSCode/tree/master/001-Oto%C3%87al%C4%B1%C5%9Ft%C4%B1r)
 Kısayollarıyla birlikte kurulumu **Konsol** ekranında uğraşmadan kalıcı hale getiriliyor. Böylelikle elde edeceğiniz VS Code projesini başka bir bölüme kopyalayarak, temiz bir başlangıç projesi elde edeceksiniz. Üstelik elde edilen bu proje de **Terminal(Konsol)** ekranı üzerinden işlem yapmanıza gerek kalmadan kısayollarla veya bir kaç tıklamayla projenizi derleyebileceksiniz.
 
 >**Not :** VS Code kurulu değilse; [Pardus forumda mevcut olan bu bağlantıya tıklayarak](https://forum.pardus.org.tr), ulaşabilirsiniz.
