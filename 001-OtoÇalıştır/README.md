@@ -78,13 +78,15 @@ Böylelikle ilk görevimizi eklemiş olduk. **`Terminal --> Run Task...`** seçe
 
 ```
 
-Harika! Sıra taskımızı eklemeye geldi. "tasks": dizi içerisinde **Cmake** taskından sonrada ,(virgül) ile ayırıp, süslü parantezler açıp, içerisine yeni taskımızı tanımlamaya başlıyoruz.
+Harika! Sıra taskımızı eklemeye geldi. "tasks": dizisi içerisinde **Cmake** taskından sonrada ,(virgül) ile ayırıp, süslü parantezler açıp, içerisine yeni taskımızı tanımlamaya başlıyoruz.
 
 ```json
 
+{
 "label": "BuildKlasorOlustur"
 ...
 ...
+}
 
 ```
 
@@ -132,90 +134,75 @@ type, command gibi değerleri tanımladıktan sonra yeni taskımızla birlikte *
 
 Dikkat edilmesi gereken husus, `"args":` değişkenine `"-p"` değerini vermeseydik, ilk çalışmada sorun olmasa da ikinci ve diğer çalışmalarımızda **mkdir** komutu hata döndürecekti. Çünkü; "BuildKlasor" isimli dizini bir kere oluşturduktan sonra üstüne yazmaz. O nedenle hata alırız ve Cmake taskımızda ön tanımlı task çalışmadığından dolayı herhangi bir işlem gerçekleşmez. İşte bunu engellemek için `"-p"` parametresini kullanıyoruz.
 
+Şimdi Cmake ile oluşturulan `Makefile` dosyasını derleyecek **`make`** taskını ekliyoruz.
 
+```json
 
-
-`main.cpp` dosyası içeriği : (**Not :** Son hali değildir. Aşama aşama anlatılmak istenmiştir.)
-
-```c
-#include <iostream>
-
-#include "kutuphane.hpp"
-
-int main(int argc, char** argv){
-
-    std::cout << topla(10,20) << std::endl;
-
-
-    std::cin.get();
+{
+       "label": "Make",
+       "type": "shell",
+       "command": "make",
+       "options": {
+              "cwd": "${workspaceFolder}/../BuildKlasor"
+       },
+       "args": [
+              "-l"
+       ]
 }
+        
 ```
 
-**VS Code** bir metin editörüdür. IDE gibi davranması için çeşitli eklentileri kurmamız gerekiyor. En başta [Pardus Forumda oluşturduğum konudan](forum.pardus.org.tr) Türkçe VS Code **`C/C++`** eklentisini kurmuş olmalıydınız. Soldaki eklentiler menüsünden `Extensions` veya <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>X</kbd> kısayoluyla açabilirsiniz.
-
-![](images/extensions.png)
-
-Tabi; **`Cmake`** diye aratıp, Cmake eklentilerini de kurmalıyız. Ayrıca; yine Microsoft 'un geliştirmeyi devraldığı **`Cmake Tools`** eklentisini de kurmalısınız. Kurulum bittiğinde otomatik olarak yapılandırma seçeneği çıkmaktadır. Dilerseniz bu kısayol yöntemiyle yapılandırabilirsiniz. Biz şimdilik uzun yolu tercih edip, mantığını anlamaya çalışacağız.
-
-![](images/cmake.png)
-
-**Cmake,** projemizi istediğimiz platformda derlenebilecek hale getirmeye yarayan bir araçtır. Bunu yapabilmesi için projemizde kullandığımız dosyaları ona tanıtmamız gerekiyor. Yani; bazı bilgilere sahip olması gerekiyor. Hangi dosyaların dahil olduğu, hangi kütüphaneleri projemize dahil edeceğimizi önceden Cmake 'e bildiriyoruz. Bunun için **`CMakeLists.txt`** isimli bir dosyayı ana dizinde oluşturuyoruz.
-
-İlk olarak Cmake versiyonunu belirtiyoruz.
-
-```cmake
-cmake_minimum_required(VERSION 2.8)
-```
-
-Daha sonra projenin çıktı olarak oluşturulacağı ismi giriyoruz.
-
-```cmake
-project(OpenGLCMakeBuild)
-```
-
-Şimdi Cmake 'e proje dizin yollarını ve dahil olan dosyaları ekliyoruz. `${CMAKE_SOURCE_DIR}` ile proje yolunu belirtsede, `set()` fonksiyonuyla kendi değişkenimizi oluşturup, `PROJECT_DIR` ismine atıyoruz. Böylece daha temiz ve karmaşıklığa yol açmadan bu değişken ismi üzerinden diğer değişkenlerimizi de oluşturuyoruz.
-
-```cmake
-set(PROJECT_DIR ${CMAKE_SOURCE_DIR})
-
-set(PROJECT_INCLUDE_DIR ${PROJECT_DIR}/include)
-
-set(PROJECT_SOURCE_DIR ${PROJECT_DIR}/src)
-
-set(PROJECT_SOURCES
-        ${PROJECT_SOURCE_DIR}/main.cpp
-        ${PROJECT_SOURCE_DIR}/kutuphane.cpp)
-
-set(PROJECT_HEADERS
-        ${PROJECT_INCLUDE_DIR}/kutuphane.hpp)
-```
-
-Son olarak projemizdeki kütüphaneleri ve yürütülebilen dosyaları sisteme ekliyoruz. Buradaki `${PROJECT_NAME}` aslında yukarıda `cmake project(OpenGLCMakeBuild)` koduyla oluşturduğumuz proje ismidir.
-
-```cmake
-include_directories(${PROJECT_INCLUDE_DIR})
-
-add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
-```
-
----
-
-## Cmake İle Projeyi Çalıştırma
-
-**VS Code** içerisinden Kurulum dosyasındaki boş alanda fare ile sağ tıklayarak **Open in Terminal** ile yapabileceğimiz gibi ilgili klasörde de **Uçbirimde aç** seçeneğiyle de konsol ekranına ulaşabiliriz. Konsol ekranına ulaştıktan sonra bir sonraki bölümde dış bir klasöre aktaracak olsakda bu ders kapsamında deneme yapmamız için **`build`** isimli bir klasör oluşturuyoruz.
-
-```bash
-mkdir build
-cd build
-```
-
-Şimdi sıra inşa işlemine geldi. Bir üstteki klasördeki `CMakeLists.txt` dosyasını kullanabilmek için konsolda **`cmake ..`** komutunu çalıştırıyoruz. Bu sayede cmake bizim bulunduğumuz klasöre **`make`** komutuyla sistemimize uygun çalışan dosyaları elde edebileceğimiz inşa işlemine başlayacaktır.
-
-![](images/cmake-build.png)
-
-Bulunduğumuz `build` klasörünü **`ls`** komutuyla kontrol ettiğimizde derleme yapabileceğimiz **`Makefile`** 'ın oluştuğunu görüyoruz. `make` komutuyla çalıştırılabilir dosyamızı oluşturuyoruz. Dosyamızı çalıştırarak fonksiyon sonucunun döndüğünü konsol ekranından görebiliriz. Sırada bu işlemleri VS Code ile konsola bulaşmadan otomatik hale getirmeyi ve devamında çalışmaya OpenGL entegrasyonu göreceğiz.
+**`Terminal --> Run Task...`** ile **Make** seçeneğini seçerek ilerlediğimizde herhangi bir sorunla karşılaşmazdan derleme işlemini gerçekleştiriyoruz.
 
 ![](images/make-run.png)
+
+![](images/make-run2.png)
+
+![](images/make-complete.png)
+
+Şimdi ilgili klasöre gidip, dosyamızı çalıştırıyoruz.
+
+![](images/calistir.png)
+
+Programımız çalıştığına göre şimdi de **`Run --> Start Debugging`** ile **Debug** ayarlarını seçebiliriz.
+
+![](images/debug-conf.png)
+
+Görüldüğü gibi gizli olan **.vscode** klasörümüze birde **launch.json** konfigürasyon dosyası eklendi. Ayrıca; **`"preLaunchTask": "Make"`** eklersek, Debug işleminden önce otomatik olarak **Make** taskını işleme koyar. Eğer bu seçeneği eklemezsek, Debug 'dan önce mutlaka Make Build 'ini elle çalıştırmalıyız. Build Task içinse sadece Cmake dosyasında değişiklik yaptığımızda ve en başta Make dosyasını oluşturmak için bir kere çalıştırmamız yeterlidir. 
+
+```json
+
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "(gdb) Başlat",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/../BuildKlasor/OpenGLCMakeBuild",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "gdb için düzgün yazdırmayı etkinleştir",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "Make"
+        }
+    ]
+}
+
+```
+
+Şimdi <kbd>F5</kbd> kısayoluyla Debug işlemini başlatalım.
+
+![](images/debug-run.png)
 
 ---
 
