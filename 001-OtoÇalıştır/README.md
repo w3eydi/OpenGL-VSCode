@@ -62,15 +62,75 @@ Muhtemelen karşınıza aşağıdaki kodlar gelecektir. Detaylı bir şekilde bi
 ```
 
 Böylelikle ilk görevimizi eklemiş olduk. **`Terminal --> Run Task...`** seçeneğini seçtiğimizde task menüsünde **`CMake`** isimli oluşturduğumuz taskı görebiliyoruz. **Build** türünde bir task olduğu için <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>B</kbd> ile de **`Terminal --> Run Build Task...`** görevini kısayoldan çalıştırmış oluruz.
->**Not :** `"cwd": değişkenine çıktıyı çalıştığımız klasörün üstündeki klasörde "BuildKlasor" şeklinde yol belirttik. Şu anki haliyle bu klasörü siz oluşturmazsanız hata alırsınız. Bunu da konunun ilerleyen kısımlarında geliştireceğiz ve bu hatayı gidermeden bahsedeceğiz.
+>**Not :** `"cwd": değişkenine çıktıyı çalıştığımız klasörün üstündeki klasörde "BuildKlasor" şeklinde yol belirttik. Şu anki haliyle bu klasörü siz oluşturmazsanız hata alırsınız. Bunu da şimdi geliştirerek, bu hatayı gidermekden bahsedeceğiz.
 
 ![](images/run-task.png)
 
 ![](images/run-task-sonuc.png)
 
+Öncelikle **Cmake** taskımıza ön tanımlı olacak şekilde task tanımlıyoruz. Bu önce bu taskı çalıştır, bittikten sonra Cmake 'i çalıştır anlamına geliyor. Bunun için Cmake dizisi içerisindeki son tanımdan sonra **,(virgül)** koyup, **"dependsOn":** değişkenini ekliyoruz. Ön tanımlı oluşturulacak taskın ismini belirtiyoruz.
 
+```json
 
+"dependsOn":[
+                "BuildKlasorOlustur"
+]
 
+```
+
+Harika! Sıra taskımızı eklemeye geldi. "tasks": dizi içerisinde **Cmake** taskından sonrada ,(virgül) ile ayırıp, süslü parantezler açıp, içerisine yeni taskımızı tanımlamaya başlıyoruz.
+
+```json
+
+"label": "BuildKlasorOlustur"
+...
+...
+
+```
+
+type, command gibi değerleri tanımladıktan sonra yeni taskımızla birlikte **tasks.json** dosyamızın son hali şu şekilde olmalıdır.
+
+```json
+
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Cmake",
+            "type": "shell",
+            "command": "cmake",
+            "options": {
+                "cwd": "${workspaceFolder}/../BuildKlasor"
+            },
+            "args": [ 
+                "${workspaceFolder}"
+            ],
+            "group":{
+                "kind": "build",
+                "isDefault": true
+            },
+            "dependsOn":[
+                "BuildKlasorOlustur"
+            ]
+        },
+        {
+            "label": "BuildKlasorOlustur",
+            "type": "shell",
+            "command": "mkdir",
+            "options": {
+                "cwd": "${workspaceFolder}/.."
+            },
+            "args": [
+                "-p", 
+                "BuildKlasor"
+            ]
+        }
+    ]
+}
+
+```
+
+Dikkat edilmesi gereken husus, `"args":` değişkenine `"-p"` değerini vermeseydik, ilk çalışmada sorun olmasa da ikinci ve diğer çalışmalarımızda **mkdir** komutu hata döndürecekti. Çünkü; "BuildKlasor" isimli dizini bir kere oluşturduktan sonra üstüne yazmaz. O nedenle hata alırız ve Cmake taskımızda ön tanımlı task çalışmadığından dolayı herhangi bir işlem gerçekleşmez. İşte bunu engellemek için `"-p"` parametresini kullanıyoruz.
 
 
 
