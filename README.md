@@ -15,17 +15,16 @@ Genel eğitim VS Code, Cmake, OpenGL gibi konulara değinmiştir. Detaylı bir b
 
 
 
-## 2. VS Code Cmake Yapılandırma & Otomatik Çalıştırma : [001-OtoÇalıştırma](https://github.com/w3eydi/OpenGL-VSCode/tree/master/001-Oto%C3%87al%C4%B1%C5%9Ft%C4%B1r)
+## 2. VS Code Cmake Yapılandırma & Otomatik Çalıştırma : [001-OtoÇalıştır](https://github.com/w3eydi/OpenGL-VSCode/tree/master/001-Oto%C3%87al%C4%B1%C5%9Ft%C4%B1r)
 Kısayollarıyla birlikte kurulumu **Konsol** ekranında uğraşmadan kalıcı hale getiriliyor. Böylelikle elde edeceğiniz VS Code projesini başka bir bölüme kopyalayarak, temiz bir başlangıç projesi elde edeceksiniz. Üstelik elde edilen bu proje de **Terminal(Konsol)** ekranı üzerinden işlem yapmanıza gerek kalmadan kısayollarla veya bir kaç tıklamayla projenizi derleyebileceksiniz.
 
 >**Not :** VS Code kurulu değilse; [Pardus forumda mevcut olan bu bağlantıya tıklayarak](https://forum.pardus.org.tr), ulaşabilirsiniz.
 
-(çalışma devam ediyor.)
 
 
+## 3. VS Code GLFW Kütüphanesi Entegrasyonu : [002-SiyahEkran](https://github.com/w3eydi/OpenGL-VSCode/tree/master/002-SiyahEkran)
+**GLFW** işletim sisteminden bağımsız olarak OpenGL 'i kullanacağımız pencereyi oluşturmaya ve girdileri kontrol etmemize yarayan bir kütüphanedir. Programcıya, üzerinde çalışılan işletim sisteminden bağımsız olarak OpenGL ve Vulkan için 'context' ve pencere oluşturma, klavye, fare, oyun çubuğu girdi ve çıktılarını yönetme kolaylığı sağlar. Bütün bunları OpenGL kullanarak da yapabiliriz, fakat her işletim sistemi için ayrı ayrı API 'lerine göre işlem yapmamız gerekecektir. GLFW bizi bundan kurtarır ve programcıların üzerinde çalıştıkları işletim sisteminin özel API 'leriyle cebelleşmesini önler. 
 
-## 3. VS Code OpenGL Entegrasyonu : 002-Entegrasyon
-(çalışma devam ediyor.)
 
 ## 4. VS Code Üzerinden OpenGL ile Örnek Proje : 002-Başlangıç-Proje
 İlk projemizle örnek bir proje oluşturup, faaliyete geçiriyoruz.
