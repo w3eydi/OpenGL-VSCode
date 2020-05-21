@@ -9,70 +9,70 @@ Eğitimimizde VS Code ile bağlantı kurmamızı ve yapılandırmamızı sağlay
 
 ---
 
-## Gerekli Paket Kurulumları Ve Ayarları
+## Configure Tasks (Görev Oluşturma ve Yapılandırma)
 
-Öncelikle projemizde derleme yapabilmemiz için gerekli olan `g++` derleyicisini sisteme kurmamız gerekmektedir.
-```git
-sudo apt install build-essential
-```
-Belki sizde kurulu olabilir. Versiyon kontrolü için :
-```git
-g++ -v
-```
+**Cmake** otomatik çalıştırılması için VS Code Tasks sistemini kullanacağız. Bunun için; **VS Code** üst menüsünde **`Terminal --> Configure Tasks...`** seçeneğini seçtikten sonra, **`Create tasks.json file from template`** ile devam ediyoruz. Karşımıza çıkan ekranda **`Other ...`** ile başlayan seçeneği seçiyoruz.
 
-Şimdi ise her türlü işletim sistemi ortamında programımızı derleyebilmemiz için **Cmake** 'i kuruyoruz.
+![](images/others.png)
 
-```git
-sudo apt install cmake
-```
+Muhtemelen karşınıza aşağıdaki kodlar gelecektir. Detaylı bir şekilde bilgi almak için belirtilen Microsoft 'un kaynağına gidebilirsiniz.
 
-Versiyon kontrolünü `cmake --version` koduyla sağlayabiliriz.
+```json
 
-Devamında VS Code ortamını Pardus 'umuza veya kullandığınız Linux ortamına kurmanız gerekmektedir. Bununla ilgili yönergeleri Microsoft 'un https://code.visualstudio.com/docs/setup/linux adresinden veya [Pardus Forumda oluşturduğum konudan](forum.pardus.org.tr) Türkçe anlatımına ulaşabilirsiniz.
-
-![](images/dosya-duzeni.png)
-
-Ben **Masaüstü** ortamımda **OpenGL --> Kurulum** yolunda klasör yapısı oluşturduktan sonra **Uçbirimde aç** seçeneğiyle konsol ekranının bulunduğum klasörde açılmasını sağlıyorum. Bu ekranda **`code .`** yazarak VS Code 'un klasör ağacını açmasını sağlayabilirsiniz. Aslında yaptığımız işlem **File --> Open Folder** ile aynı mantıktadır. İstediğiniz yolu seçebilirsiniz.
-
-**Welcome(Başlangıç)** ekranını kapatabilirsiniz. Öncelikle gerekli **`C++`** ortamımızı oluşturmakla başlayalım. `New Folder` ile klasörlerimizi ve `New File` seçeneğiyle dosyalarımızı oluşturuyoruz. Kendi oluşturduğumuz kütüphaneleri de dahil edebileceğimiz genel bir yapı oluşturacağız.
-
-![](images/dizin-olusturma.png)
-
-`include --> kutuphane.hpp` ve `src --> kutuphane.cpp, main.cpp` şeklinde dosya ağacımızı kuruyoruz. Aşağıdaki gibi bir görüntü elde etmiş olacaksınız.
-
-![](images/dosya-olusturma.png)
-
-Başlık dosyasında basit bir prototip oluşturup, `.cpp` dosyasında tanımlıyoruz(function definition).
-```c
-//Function declaration (deklara etmek, prototip oluşturmak) :
-int topla(int sayi1, int sayi2);
-
-//Function definition (tanımlamak) :
-int topla(int sayi1, int sayi2){
-  return sayi1 + sayi2;
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "echo",
+            "type": "shell",
+            "command": "echo Hello"
+        }
+    ]
 }
+
 ```
 
-`kutuphane.hpp` dosyası içeriği :
+Şimdi dosyamızı aşağıdaki gibi değiştirelim.
 
-```c
-#ifndef kutuphane_hpp
-#define kutuphane_hpp
+```json
 
-int topla(int sayi1, int sayi2);
-
-#endif
-```
-
-`kutuphane.cpp` dosyası içeriği :
-
-```c
-#include "kutuphane.hpp"
-
-int topla(int sayi1, int sayi2){
-    return sayi1 + sayi2;
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Cmake",
+            "type": "shell",
+            "command": "cmake",
+            "options": {
+                "cwd": "${workspaceFolder}/../BuildKlasor"
+            },
+            "args": [ 
+                "${workspaceFolder}"
+            ],
+            "group":{
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
 }
+
 ```
+
+Böylelikle ilk görevimizi eklemiş olduk. **`Terminal --> Run Task...`** seçeneğini seçtiğimizde task menüsünde **`CMake`** isimli oluşturduğumuz taskı görebiliyoruz. **Build** türünde bir task olduğu için <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>B</kbd> ile de **`Terminal --> Run Build Task...`** görevini kısayoldan çalıştırmış oluruz.
+>**Not :** `"cwd": değişkenine çıktıyı çalıştığımız klasörün üstündeki klasörde "BuildKlasor" şeklinde yol belirttik. Şu anki haliyle bu klasörü siz oluşturmazsanız hata alırsınız. Bunu da konunun ilerleyen kısımlarında geliştireceğiz ve bu hatayı gidermeden bahsedeceğiz.
+
+![](images/run-task.png)
+
+![](images/run-task-sonuc.png)
+
+
+
+
+
+
 
 
 `main.cpp` dosyası içeriği : (**Not :** Son hali değildir. Aşama aşama anlatılmak istenmiştir.)
