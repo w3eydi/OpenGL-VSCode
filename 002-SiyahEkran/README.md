@@ -31,7 +31,7 @@ Muhtemelen, doxygen ile ilgili hata alabilirsiniz.
 sudo apt install doxygen
 ```
 
-Kişisel sistemim için ekran kartı driverı olarak Bumblebee kurmuştum. Bunun asıl nedeni nvdia-xconfig kurulumunda yaşadığım siyah konsol ekranı hatasıydı.(Bu konu başlığıyla karıştırmayın. Bu hata ekran kartımın yazılımından kaynaklı aldığım ve bilgisayarım açıldığında siyah konsol ekranının göründüğü bir hataydı.) [Pardus Forumdaki Çözümü](https://forum.pardus.org.tr/t/nvidia-cift-ekran-karti-surucu-yukleme-nvidia-intel/14493/3?u=w3.eydi) Bu nedenle sizde Bumblebee kurduysanız, X11 pencere sistemi ile ilgili sıkıntılar yaşayabilirsiniz. GLFW buna ihtiyaç duyduğu için developer paketlerinin başlık dosyalarını kuracağız. Aynı şey olmasa da X11 'nin başlık dosyalarına ihtiyaç olduğu için bu hatayı vermiş olabilir.
+Kişisel sistemim için ekran kartı driverı olarak Bumblebee kurmuştum. Bunun asıl nedeni nvdia-xconfig kurulumunda yaşadığım siyah konsol ekranı hatasıydı.(Bu konu başlığıyla karıştırmayın. Bu hata ekran kartımın yazılımından kaynaklı aldığım ve bilgisayarım açıldığında siyah konsol ekranının göründüğü bir hataydı. - [Pardus Forumdaki Çözümü](https://forum.pardus.org.tr/t/nvidia-cift-ekran-karti-surucu-yukleme-nvidia-intel/14493/3?u=w3.eydi)) Bu nedenle sizde Bumblebee kurduysanız, X11 pencere sistemi ile ilgili sıkıntılar yaşayabilirsiniz. GLFW buna ihtiyaç duyduğu için developer paketlerinin başlık dosyalarını kuracağız. Aynı şey olmasa da X11 'nin başlık dosyalarına ihtiyaç olduğu için bu hatayı vermiş olabilir.
 ```bash
 sudo apt install libx11-dev
 ```
