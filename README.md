@@ -26,7 +26,18 @@ Kısayollarıyla birlikte kurulumu **Konsol** ekranında uğraşmadan kalıcı h
 **GLFW** işletim sisteminden bağımsız olarak OpenGL 'i kullanacağımız pencereyi oluşturmaya ve girdileri kontrol etmemize yarayan bir kütüphanedir. Programcıya, üzerinde çalışılan işletim sisteminden bağımsız olarak OpenGL ve Vulkan için 'context' ve pencere oluşturma, klavye, fare, oyun çubuğu girdi ve çıktılarını yönetme kolaylığı sağlar. Bütün bunları OpenGL kullanarak da yapabiliriz, fakat her işletim sistemi için ayrı ayrı API 'lerine göre işlem yapmamız gerekecektir. GLFW bizi bundan kurtarır ve programcıların üzerinde çalıştıkları işletim sisteminin özel API 'leriyle cebelleşmesini önler. 
 
 
-## 4. VS Code Üzerinden OpenGL ile Örnek Proje : 002-Başlangıç-Proje
+
+## 4. Glad ve Glm Kütüphaneleri Entegrasyonu : [003-GladveGlm](https://github.com/w3eydi/OpenGL-VSCode/tree/master/003-GladveGlm)
+
+**Glad,** [OpenGL Loading Library](https://www.khronos.org/opengl/wiki/OpenGL_Loading_Library#glad_.28Multi-Language_GL.2FGLES.2FEGL.2FGLX.2FWGL_Loader-Generator.29) olarak geçen çeşitli OpenGL fonksiyonlarını çalışma zamanında işaretçilerle sistemimize entegre eden bir kütüphanedir. Bizim kullandığımız işletim sistemindeki OpenGL kütüphanelerine elle ulaşmak yerine Glad kullanarak otomatik bir erişim sağlıyoruz.
+
+**Glm,** çeşitli görselleştirme hesaplamaları yapmamızı sağlayan vektör ve matris kütüphanesidir.
+
+(çalışma devam ediyor.)
+
+
+
+## 5. VS Code Üzerinden OpenGL ile Örnek Proje : 002-Başlangıç-Proje
 İlk projemizle örnek bir proje oluşturup, faaliyete geçiriyoruz.
 (çalışma devam ediyor.)
 
