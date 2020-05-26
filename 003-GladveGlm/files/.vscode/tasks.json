@@ -1,0 +1,46 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Cmake",
+            "type": "shell",
+            "command": "cmake",
+            "options": {
+                "cwd": "${workspaceFolder}/../BuildKlasor"
+            },
+            "args": [ 
+                "${workspaceFolder}"
+            ],
+            "group":{
+                "kind": "build",
+                "isDefault": true
+            },
+            "dependsOn":[
+                "BuildKlasorOlustur"
+            ]
+        },
+        {
+            "label": "BuildKlasorOlustur",
+            "type": "shell",
+            "command": "mkdir",
+            "options": {
+                "cwd": "${workspaceFolder}/.."
+            },
+            "args": [
+                "-p", 
+                "BuildKlasor"
+            ]
+        },
+        {
+            "label": "Make",
+            "type": "shell",
+            "command": "make",
+            "options": {
+                "cwd": "${workspaceFolder}/../BuildKlasor"
+            },
+            "args": [
+                "-l"
+            ]
+        }
+    ]
+}
