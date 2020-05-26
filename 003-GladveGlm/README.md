@@ -111,7 +111,7 @@ int main(int argc, char** argv){
 
 ```
 
-![](images/glfw-calistir.png)
+![](images/glm-ekle.png)
 
 Bir sonraki bölümde örnek bir proje yaparak OpenGL eğitimimizi bitireceğiz.
 
